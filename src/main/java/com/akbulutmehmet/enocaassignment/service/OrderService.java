@@ -59,4 +59,9 @@ public class OrderService {
     public void deleteOrderById(String id) {
         orderRepository.deleteById(id);
     }
+
+
+    public Set<OrderDto> getAfterDataList(Date date) {
+       return orderRepository.findByCreationDateAfter(date).stream().map((order) -> orderDtoConverter.convert(order)).collect(Collectors.toSet());
+    }
 }

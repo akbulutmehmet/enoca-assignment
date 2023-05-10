@@ -61,4 +61,8 @@ public class CustomerService {
         customer.setAge(updateCustomerRequest.getAge());
         return customerDtoConverter.convert(customerRepository.save(customer));
     }
+
+    public Set<CustomerDto> getCustomerEmptyOrder() {
+        return customerRepository.findCustomerByOrders_Empty().stream().map((customer) -> customerDtoConverter.convert(customer)).collect(Collectors.toSet());
+    }
 }

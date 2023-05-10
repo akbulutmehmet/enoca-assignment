@@ -40,4 +40,8 @@ public class CustomerController {
     public void deleteCustomerById (@PathVariable("id") String id){
          customerService.deletCustomerById(id);
     }
+    @GetMapping(value = "/empty-order")
+    public ResponseEntity<Set<CustomerDto>> getCustomerEmptyOrder () {
+        return ResponseEntity.ok(customerService.getCustomerEmptyOrder());
+    }
 }
