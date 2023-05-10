@@ -1,11 +1,13 @@
 package com.akbulutmehmet.enocaassignment.model;
 
+import org.aspectj.weaver.ast.Or;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 @Table(name = "orders")
@@ -34,6 +36,35 @@ public class Order implements Serializable {
         this.totalPrice = totalPrice;
         this.customer = customer;
         this.creationDate = creationDate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof Order))
+            return false;
+        Order other = (Order)o;
+        if(other.customer != customer) {
+            return false;
+        }
+
+        if(other.totalPrice != totalPrice){
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result =17;
+        if(customer != null) {
+            result = 31 * result * customer.hashCode();
+        }
+        if(totalPrice != null) {
+            result = 31 * result * totalPrice.hashCode();
+        }
+        return result;
     }
 
     public Date getCreationDate() {

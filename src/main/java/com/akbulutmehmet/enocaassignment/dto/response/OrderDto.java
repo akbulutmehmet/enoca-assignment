@@ -1,5 +1,7 @@
 package com.akbulutmehmet.enocaassignment.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -7,6 +9,7 @@ import java.util.Date;
 public class OrderDto implements Serializable {
     private String id;
     private BigDecimal totalPrice;
+    @JsonFormat(pattern = "dd-MM-yyyy hh:MM:ss")
     private Date creationDate;
     private String customerId;
     public OrderDto() {

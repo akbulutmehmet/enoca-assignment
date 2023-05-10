@@ -38,7 +38,44 @@ public class Customer implements Serializable {
         this.age = age;
         this.orders = orders;
     }
-
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof Customer))
+            return false;
+        Customer other = (Customer)o;
+        if(other.name != name) {
+            return false;
+        }
+        if(other.middleName != middleName){
+            return false;
+        }
+        if(other.surname != surname){
+            return false;
+        }
+        if(other.age != age){
+            return false;
+        }
+        return true;
+    }
+    @Override
+    public int hashCode() {
+        int result =17;
+        if(name != null) {
+            result = 31 * result * name.hashCode();
+        }
+        if(middleName != null) {
+            result = 31 * result * middleName.hashCode();
+        }
+        if(surname != null) {
+            result = 31 * result *surname.hashCode();
+        }
+        if(age != null) {
+            result = 31 * result *age.hashCode();
+        }
+        return result;
+    }
     public Set<Order> getOrders() {
         return orders;
     }

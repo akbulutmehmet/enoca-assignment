@@ -8,8 +8,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 public class CreateOrderRequest implements Serializable {
-    @NotEmpty(message = "Total price field should not be empty")
-    @NotBlank(message = "Total price field should not be blank")
     @DecimalMin(value = "0.0")
     private BigDecimal totalPrice;
 
