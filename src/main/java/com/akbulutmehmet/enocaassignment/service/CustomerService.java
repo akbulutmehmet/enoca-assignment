@@ -2,6 +2,7 @@ package com.akbulutmehmet.enocaassignment.service;
 
 import com.akbulutmehmet.enocaassignment.dto.converter.CustomerDtoConverter;
 import com.akbulutmehmet.enocaassignment.dto.request.CreateCustomerRequest;
+import com.akbulutmehmet.enocaassignment.dto.request.UpdateCustomerRequest;
 import com.akbulutmehmet.enocaassignment.dto.response.CustomerDto;
 import com.akbulutmehmet.enocaassignment.exception.CustomerException;
 import com.akbulutmehmet.enocaassignment.model.Customer;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -43,10 +45,20 @@ public class CustomerService {
     }
 
     public Customer findById (String id) {
-        return customerRepository.findById(id).orElseThrow(() -> new CustomerException("Customer could not find by id"+id));
+        return customerRepository.findById(id).orElseThrow(() -> new CustomerException("Customer could not find by id : "+id));
     }
-
+    @Transactional(readOnly = false)
     public void deletCustomerById(String id) {
         customerRepository.deleteById(id);
+    }
+
+    @Transactional(readOnly = false)
+    public CustomerDto updateCustomer(String id, UpdateCustomerRequest updateCustomerRequest) {
+        Customer customer = findById(id);
+        customer.setName(updateCustomerRequest.getName());
+        customer.setMiddleName(updateCustomerRequest.getMiddleName());
+        customer.setSurname(updateCustomerRequest.getSurname());
+        customer.setAge(updateCustomerRequest.getAge());
+        return customerDtoConverter.convert(customerRepository.save(customer));
     }
 }

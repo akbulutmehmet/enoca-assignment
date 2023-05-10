@@ -3,7 +3,7 @@ package com.akbulutmehmet.enocaassignment.dto.request;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 
-public class CreateCustomerRequest implements Serializable {
+public class UpdateCustomerRequest implements Serializable {
     @NotEmpty(message = "Name field should not be empty")
     @NotBlank(message = "Name field should not be blank")
     @Size(min = 2,message = "it must be min 2 character")
@@ -18,10 +18,10 @@ public class CreateCustomerRequest implements Serializable {
     @Max(110)
     private Integer age;
 
-    public CreateCustomerRequest() {
+    public UpdateCustomerRequest() {
     }
 
-    public CreateCustomerRequest(String name, String middleName, String surname, Integer age) {
+    public UpdateCustomerRequest(String name, String middleName, String surname, Integer age) {
         this.name = name;
         this.middleName = middleName;
         this.surname = surname;

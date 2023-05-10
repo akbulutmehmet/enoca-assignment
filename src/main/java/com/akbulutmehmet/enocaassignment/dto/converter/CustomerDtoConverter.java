@@ -3,6 +3,7 @@ package com.akbulutmehmet.enocaassignment.dto.converter;
 import com.akbulutmehmet.enocaassignment.dto.response.CustomerDto;
 import com.akbulutmehmet.enocaassignment.dto.response.OrderDto;
 import com.akbulutmehmet.enocaassignment.model.Customer;
+import com.akbulutmehmet.enocaassignment.model.Order;
 import org.springframework.stereotype.Component;
 
 import java.util.Set;
@@ -17,9 +18,10 @@ public class CustomerDtoConverter {
     }
 
     public CustomerDto convert(Customer customer) {
-        Set<OrderDto> orderDtoSet = customer.
-                getOrders().
-                stream().map((order) -> orderDtoConverter.convert(order)).collect(Collectors.toSet());
+       Set<OrderDto> orderDtoSet = null;
+        if(customer.getOrders() != null) {
+            orderDtoSet = customer.getOrders().stream().map((order) -> orderDtoConverter.convert(order)).collect(Collectors.toSet());
+        }
         return new CustomerDto(customer.getId(),customer.getName(), customer.getMiddleName(), customer.getSurname(), customer.getAge(),orderDtoSet);
     }
 }
