@@ -4,6 +4,7 @@ import com.akbulutmehmet.enocaassignment.dto.converter.CustomerDtoConverter;
 import com.akbulutmehmet.enocaassignment.dto.request.CreateCustomerRequest;
 import com.akbulutmehmet.enocaassignment.dto.request.UpdateCustomerRequest;
 import com.akbulutmehmet.enocaassignment.dto.response.CustomerDto;
+import com.akbulutmehmet.enocaassignment.dto.response.CustomerSearchDto;
 import com.akbulutmehmet.enocaassignment.exception.CustomerException;
 import com.akbulutmehmet.enocaassignment.model.Customer;
 import com.akbulutmehmet.enocaassignment.repository.CustomerRepository;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -64,5 +66,14 @@ public class CustomerService {
 
     public Set<CustomerDto> getCustomerEmptyOrder() {
         return customerRepository.findCustomerByOrders_Empty().stream().map((customer) -> customerDtoConverter.convert(customer)).collect(Collectors.toSet());
+    }
+
+    public Set<CustomerSearchDto> searchCustomerByName (String s){
+        List<Customer> customers = customerRepository.searchForCustomer(s);
+        Set<CustomerSearchDto> customerSearchDtos = null;
+        if(customers.size() > 0 && customers != null) {
+            customerSearchDtos = customers.stream().map((customer) -> customerDtoConverter.convertToSearchDto(customer)).collect(Collectors.toSet());
+        }
+        return customerSearchDtos;
     }
 }

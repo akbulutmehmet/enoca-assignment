@@ -3,6 +3,7 @@ package com.akbulutmehmet.enocaassignment.controller;
 import com.akbulutmehmet.enocaassignment.dto.request.CreateCustomerRequest;
 import com.akbulutmehmet.enocaassignment.dto.request.UpdateCustomerRequest;
 import com.akbulutmehmet.enocaassignment.dto.response.CustomerDto;
+import com.akbulutmehmet.enocaassignment.dto.response.CustomerSearchDto;
 import com.akbulutmehmet.enocaassignment.service.CustomerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -43,5 +44,9 @@ public class CustomerController {
     @GetMapping(value = "/empty-order")
     public ResponseEntity<Set<CustomerDto>> getCustomerEmptyOrder () {
         return ResponseEntity.ok(customerService.getCustomerEmptyOrder());
+    }
+    @GetMapping(value = "/search")
+    public ResponseEntity<Set<CustomerSearchDto>> searchCustomerByName (@RequestParam("search") String s ){
+        return ResponseEntity.ok(customerService.searchCustomerByName(s));
     }
 }
