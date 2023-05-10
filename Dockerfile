@@ -1,4 +1,13 @@
-FROM openjdk:11
+FROM openjdk:11-jdk-slim AS build
+
+COPY pom.xml mvnw ./
+COPY .mvn .mvn
+RUN ./mvnw dependency:resolve
+
+COPY src src
+RUN ./mvnw package
+
+FROM openjdk:11-jdk-slim
 WORKDIR /app
-COPY target/enoca-assignment-1.0.jar app.jar
-ENTRYPOINT ["java","-jar","app.jar"]
+COPY --from=build target/*.jar app.jar
+ENTRYPOINT ["java", "-jar", "app.jar"]
