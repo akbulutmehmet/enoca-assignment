@@ -1,17 +1,13 @@
-version: '3.0'
+version: '3.9'
 services:
   app:
-    image: "enoca-assignment:1.0"
-    build:
-      context: .
+    image: enoca-assignment:1.0
     ports:
       - 8085:8085
     environment:
-     - "SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL}"
-     - "SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME}"
-     - "SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}"
-    networks:
-      - app-network
+     - "SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/enoca"
+     - "SPRING_DATASOURCE_USERNAME=root"
+     - "SPRING_DATASOURCE_PASSWORD=123456"
     links:
       - db:enoca
     depends_on:
@@ -22,13 +18,9 @@ services:
     ports:
       - 3306:3306
     environment:
-      - "MYSQL_DATABASE=${MYSQL_DATABASE}"
-      - "MYSQL_ROOT_PASSWORD=${SPRING_DATASOURCE_PASSWORD}"
-    networks:
-      - app-network
+      - "MYSQL_DATABASE=enoca"
+      - "MYSQL_ROOT_PASSWORD=123456"
     volumes:
       - db:/var/lib/mysql
-networks:
-  app-network:
 volumes:
   db:
