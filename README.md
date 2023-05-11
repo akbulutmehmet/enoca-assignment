@@ -21,3 +21,4 @@ Project is run in 8085 port.
 
 
 <img width="1437" alt="Screen Shot 2023-05-11 at 16 12 24" src="https://github.com/akbulutmehmet/enoca-assignment/assets/45743551/a7a575b9-0de5-4671-9f6a-ef24733df12b">
+<img width="1437" alt="Screen Shot 2023-05-11 at 16 13 28" src="https://github.com/akbulutmehmet/enoca-assignment/assets/45743551/175852da-748f-4437-8cc6-479fd75b8413">
